@@ -1,10 +1,7 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <main>
-    <h1>
-      {{ $t("userProfile") }}
-    </h1>
-  </main>
+  <h1>
+    {{ $t('userProfile') }}
+  </h1>
 </template>

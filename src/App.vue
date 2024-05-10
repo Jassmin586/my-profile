@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="" width="125" height="125" />
-
-    <nav>
-      <RouterLink to="/">User profile</RouterLink>
-      <RouterLink to="/user-information-form">User information form</RouterLink>
-    </nav>
-  </header>
-
-  <RouterView />
+  <AppHeader />
+  <main class="pb-20 container mx-auto">
+    <RouterView />
+  </main>
+  <AppFooter />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
