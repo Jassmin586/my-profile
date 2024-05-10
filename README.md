@@ -16,3 +16,5 @@ Run on http://localhost:4173/
 pnpm install
 pnpm dev
 ```
+
+Run on http://localhost:5173/
