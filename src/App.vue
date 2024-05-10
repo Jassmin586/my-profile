@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router'
 
 <template>
   <AppHeader />
-  <main class="pb-20 container mx-auto">
+  <main class="pb-20 container mx-auto my-6">
     <RouterView />
   </main>
   <AppFooter />

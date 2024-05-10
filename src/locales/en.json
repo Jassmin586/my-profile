@@ -2,5 +2,12 @@
     "userProfile": "User profile",
     "userInformationForm": "User information form",
     "submit": "Submit",
-    "logo": "My profile logo"
+    "logo": "My profile logo",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "birthday": "Birthday",
+    "about": "About",
+    "avatar": "Avatar"
 }
