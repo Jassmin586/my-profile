@@ -9,7 +9,7 @@ const { name, nameProps, email, emailProps, errors } =
 </script>
 <template>
   <h1 class="text-3xl font-bold underline text-blue-600">
-    User information form
+    {{ $t("userInformationForm") }}
   </h1>
   <form @submit="store.submit" novalidate>
     <div class="field">
@@ -27,6 +27,6 @@ const { name, nameProps, email, emailProps, errors } =
       <span>{{ errors.email }}</span>
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="submit">{{ $t("submit") }}</button>
   </form>
 </template>

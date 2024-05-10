@@ -4,7 +4,7 @@
 <template>
   <main>
     <h1>
-      User profile
+      {{ $t("userProfile") }}
     </h1>
   </main>
 </template>
