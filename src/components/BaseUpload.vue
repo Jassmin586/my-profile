@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 withDefaults(
   defineProps<{
     label: string
@@ -17,11 +19,12 @@ withDefaults(
 )
 
 const emit = defineEmits<{
-  (e: 'update', value: any): void
+  (e: 'update:modelValue', value?: File): void
 }>()
 
-const onChange = (e: InputEvent) => {
-  emit('update', e)
+const onChange = (event: Event) => {
+  const file = (event.target as HTMLInputElement)?.files?.[0]
+  emit('update:modelValue', file)
 }
 </script>
 
@@ -33,11 +36,11 @@ const onChange = (e: InputEvent) => {
       <input
         :disabled="disabled || loading"
         type="file"
-        class="flex cursor-pointer gap-small rounded-xl border p-5"
+        class="flex cursor-pointer gap-small rounded-xl border p-5 w-full md:w-auto"
         :accept="accept"
         @change="onChange"
       />
     </label>
-    <p>{{ error }}</p>
+    <p class="text-red-500 mt-1">{{ error }}</p>
   </div>
 </template>

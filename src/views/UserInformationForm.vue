@@ -29,7 +29,11 @@ const {
   <h1 class="text-3xl font-bold mb-10 border-b pb-2">
     {{ $t('userInformationForm') }}
   </h1>
-  <form @submit="store.submit" novalidate class="grid grid-cols-3 gap-y-4 gap-x-6">
+  <form
+    @submit="store.submit"
+    novalidate
+    class="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-6"
+  >
     <BaseInput
       v-model="firstName"
       :label="$t('firstName')"
@@ -79,20 +83,20 @@ const {
     </label>
 
     <BaseTextarea
-      class="col-span-3"
+      class="md:col-span-2 lg:col-span-3"
       v-model="about"
       :label="$t('about')"
       :input-props="aboutProps"
       :error="errors.about"
     />
 
-    <BaseUpload class="col-span-3" v-model="avatar" :label="$t('avatar')" />
+    <BaseUpload class="md:col-span-2 lg:col-span-3" v-model="avatar" :label="$t('avatar')" />
 
-    <div class="col-span-3">
+    <div class="md:col-span-2 lg:col-span-3">
       <button
         type="submit"
         :disabled="!meta.touched"
-        class="rounded-xl border text-zinc-900 bg-white px-8 py-3 cursor-pointer font-bold"
+        class="rounded-xl border text-zinc-900 bg-white px-8 py-3 cursor-pointer font-bold w-full md:w-auto"
       >
         {{ $t('submit') }}
       </button>

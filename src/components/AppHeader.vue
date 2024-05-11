@@ -1,8 +1,8 @@
 <template>
-  <header class="z-40 px-5 py-2.5 md:p-5">
-    <div class="grid grid-cols-[200px_auto_200px] items-center">
-      <RouterLink to="/" :title="$t('userProfile')">
-        <img src="" :alt="$t('logo')" />
+  <header class="py-6 container mx-auto">
+    <div class="grid md:grid-cols-[200px_auto_200px] items-center">
+      <RouterLink to="/" :title="$t('userProfile')" class="max-w-[200px] mx-auto mb-4 md:mb-0">
+        <img src="/logo.png" :alt="$t('logo')" />
       </RouterLink>
       <AppNavbar />
     </div>

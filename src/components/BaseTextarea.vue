@@ -19,6 +19,6 @@ const modelValue = defineModel<string>()
         class="h-32 w-full px-3 py-2 rounded text-black"
       />
     </label>
-    <p>{{ error }}</p>
+    <p class="text-red-500 mt-1">{{ error }}</p>
   </div>
 </template>
