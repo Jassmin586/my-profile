@@ -6,7 +6,7 @@ const { firstName, lastName, email, phone, birthday, about, avatar } = store
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold mb-10 border-b pb-2">
+  <h1 class="text-3xl font-bold mb-10 border-b pb-2 tracking-wide">
     {{ $t('userProfile') }}
   </h1>
 

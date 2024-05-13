@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 withDefaults(
   defineProps<{
     label: string
@@ -30,7 +28,7 @@ const onChange = (event: Event) => {
 
 <template>
   <div>
-    <label>
+    <label class="inline-block">
       <span class="block mb-2"> {{ label }} </span>
 
       <input
@@ -41,6 +39,6 @@ const onChange = (event: Event) => {
         @change="onChange"
       />
     </label>
-    <p class="text-red-500 mt-1">{{ error }}</p>
+    <p class="text-red-500 mt-1 text-xs min-h-4">{{ error }}</p>
   </div>
 </template>

@@ -16,17 +16,13 @@ const {
   phone,
   phoneProps,
   birthday,
-  birthdayProps,
   about,
-  aboutProps,
   avatar,
-  avatarProps,
-  meta,
   errors
 } = storeToRefs(store)
 </script>
 <template>
-  <h1 class="text-3xl font-bold mb-10 border-b pb-2">
+  <h1 class="text-3xl font-bold mb-10 border-b pb-2 tracking-wide">
     {{ $t('userInformationForm') }}
   </h1>
   <form
@@ -80,23 +76,27 @@ const {
         autocomplete="bday"
         :max-date="new Date()"
       />
+      <p class="text-red-500 mt-1 text-xs min-h-4">{{ errors.birthday }}</p>
     </label>
 
     <BaseTextarea
       class="md:col-span-2 lg:col-span-3"
       v-model="about"
       :label="$t('about')"
-      :input-props="aboutProps"
       :error="errors.about"
     />
 
-    <BaseUpload class="md:col-span-2 lg:col-span-3" v-model="avatar" :label="$t('avatar')" />
+    <BaseUpload
+      class="md:col-span-2 lg:col-span-3"
+      v-model="avatar"
+      :label="$t('avatar')"
+      :error="errors.avatar"
+    />
 
-    <div class="md:col-span-2 lg:col-span-3">
+    <div class="md:col-span-2 lg:col-span-3 text-center mt-10">
       <button
         type="submit"
-        :disabled="!meta.touched"
-        class="rounded-xl border text-zinc-900 bg-white px-8 py-3 cursor-pointer font-bold w-full md:w-auto"
+        class="rounded-xl border text-white bg-zinc-800 border-white px-20 py-3 cursor-pointer font-bold w-full md:w-auto hover:text-zinc-800 focus:text-zinc-800 hover:bg-white focus:bg-white transition-colors"
       >
         {{ $t('submit') }}
       </button>

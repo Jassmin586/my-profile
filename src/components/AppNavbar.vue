@@ -16,9 +16,14 @@ const menu = [
 
 <template>
   <nav>
-    <ul class="flex items-center justify-center">
+    <ul class="flex items-center justify-center gap-x-8">
       <li v-for="item in menu" :key="item.label">
-        <RouterLink :to="item.to" :title="item.label" class="p-4">
+        <RouterLink
+          :to="item.to"
+          :title="item.label"
+          class="flex justify-center flex-col relative tracking-wider after:content-[''] after:h-px after:w-0 hover:after:w-full focus:after:w-full after:duration-300 after:absolute after:bottom-0 after:left-0 after:bg-white after:transition-width"
+          active-class="after:!w-full"
+        >
           {{ item.label }}
         </RouterLink>
       </li>

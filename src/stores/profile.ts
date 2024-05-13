@@ -3,17 +3,43 @@ import { defineStore } from 'pinia';
 import { useForm } from 'vee-validate';
 import * as Yup from 'yup';
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const phoneRegex = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-]+(\.[a-zA-Z-]+)*$/
+const maxMessage= 'Maximum 255 characters'
 
 const schema = toTypedSchema(
     Yup.object({
-        firstName: Yup.string().required(),
-        lastName: Yup.string().required(),
-        email: Yup.string().email().required(),
-        phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-        birthday: Yup.date().nullable().min(new Date(1900, 0, 1)),
-        about: Yup.string(),
-        avatar: Yup.string()
+        firstName: Yup.string().required().max(255, maxMessage),
+        lastName: Yup.string().required().max(255, maxMessage),
+        email: Yup.string().email().matches(
+            emailRegex,
+            'email must be a valid email',
+        ).required().max(255, maxMessage),
+        phone: Yup.string().required().max(255, maxMessage).matches(phoneRegex, 'Phone number is not valid'),
+        birthday: Yup.date().required().min(new Date(1900, 0, 1)),
+        about: Yup.string().required(),
+        avatar: Yup.mixed().required().test(
+            'fileFormat',
+            'Available image extensions',
+            value => {
+                const type = (value as File).type
+                if (!value || !type) {
+                    return true
+                }
+                const fileExtensionMIMEType = type.split('/')[0].toLowerCase()
+                return ['image'].includes(fileExtensionMIMEType)
+            },
+        )
+        .test('fileSize', 'Maximum 32 MB.', value => {
+            const size = (value as File).size
+            const maxFileSize = 32 * 1024 * 1024
+
+            if (!value || !size) {
+                return true
+            }
+
+            return size <= maxFileSize
+        }),
     })
 )
 

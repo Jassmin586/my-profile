@@ -9,7 +9,11 @@ export default {
       sans: ['Arial', 'sans-serif'],
       serif: ['Georgia', 'serif'],
     },
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'width': 'width'
+      }
+    },
   },
   plugins: [],
 }

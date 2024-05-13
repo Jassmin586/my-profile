@@ -13,7 +13,6 @@ declare module 'vue' {
     BaseInput: typeof import('./src/components/BaseInput.vue')['default']
     BaseTextarea: typeof import('./src/components/BaseTextarea.vue')['default']
     BaseUpload: typeof import('./src/components/BaseUpload.vue')['default']
-    InputFile: typeof import('./src/components/InputFile.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
