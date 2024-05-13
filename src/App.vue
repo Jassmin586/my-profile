@@ -7,7 +7,7 @@ const { firstName, lastName, email, phone, birthday, about, avatarBase64 } =
   storeToRefs(useProfileStore())
 
 const setSavedData = () => {
-  const profileAsString = localStorage.getItem('profile')
+  const profileAsString = sessionStorage.getItem('profile')
   const profile = profileAsString && JSON.parse(profileAsString)
   if (!profile) return
 

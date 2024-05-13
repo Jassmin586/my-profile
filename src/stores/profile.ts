@@ -64,6 +64,7 @@ export const useProfileStore = defineStore('profile', () => {
     const [about, aboutProps] = defineField('about')
     const [avatar, avatarProps] = defineField('avatar')
     const avatarBase64 = ref('')
+    const isSaved = ref(false)
 
     const submit = handleSubmit(async (values) => {
         if (values.avatar) {
@@ -76,7 +77,12 @@ export const useProfileStore = defineStore('profile', () => {
             avatarName: values.avatar?.name
         })
 
-        localStorage.setItem('profile', data)
+        sessionStorage.setItem('profile', data)
+
+        isSaved.value = true
+        setTimeout(() => {
+            isSaved.value = false
+        }, 5000)
     })
 
     return {
@@ -97,6 +103,7 @@ export const useProfileStore = defineStore('profile', () => {
         avatar,
         avatarProps,
         avatarBase64,
+        isSaved,
         submit,
     }
 })

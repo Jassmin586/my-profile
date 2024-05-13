@@ -3,10 +3,8 @@ import { storeToRefs } from 'pinia'
 import { useProfileStore } from '@/stores/profile'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-import { ref } from 'vue'
 
 const store = useProfileStore()
-const isSaved = ref(false)
 
 const {
   firstName,
@@ -20,23 +18,16 @@ const {
   birthday,
   about,
   avatar,
-  errors
+  errors,
+  isSaved
 } = storeToRefs(store)
-
-const onSubmit = () => {
-  store.submit()
-  isSaved.value = true
-  setTimeout(() => {
-    isSaved.value = false
-  }, 5000)
-}
 </script>
 <template>
   <h1 class="text-3xl font-bold mb-10 border-b pb-2 tracking-wide text-center md:text-left">
     {{ $t('userInformationForm') }}
   </h1>
   <form
-    @submit.prevent="onSubmit"
+    @submit="store.submit"
     novalidate
     class="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-6"
   >

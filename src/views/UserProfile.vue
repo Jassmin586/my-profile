@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useProfileStore } from '@/stores/profile'
-
-const { firstName, lastName, email, phone, birthday, about, avatarBase64 } = useProfileStore()
+const profileAsString = sessionStorage.getItem('profile')
+const profile = profileAsString && JSON.parse(profileAsString)
+const birthdayDate = profile && new Date(profile.birthday)
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const { firstName, lastName, email, phone, birthday, about, avatarBase64 } = use
   >
     <div class="md:col-span-3 mb-10">
       <img
-        :src="avatarBase64"
+        :src="profile?.avatar"
         :alt="$t('avatar')"
         class="size-40 rounded-full bg-white border-2 border-white mx-auto object-cover"
       />
@@ -22,29 +22,31 @@ const { firstName, lastName, email, phone, birthday, about, avatarBase64 } = use
 
     <div>
       <h2 class="text-md font-semibold">{{ $t('firstName') }}</h2>
-      <p>{{ firstName || '-' }}</p>
+      <p>{{ profile?.firstName || '-' }}</p>
     </div>
 
     <div>
       <h2 class="text-md font-semibold">{{ $t('lastName') }}</h2>
-      <p>{{ lastName || '-' }}</p>
+      <p>{{ profile?.lastName || '-' }}</p>
     </div>
 
     <div>
       <h2 class="text-md font-semibold">{{ $t('email') }}</h2>
-      <p>{{ email || '-' }}</p>
+      <p>{{ profile?.email || '-' }}</p>
     </div>
 
     <div>
       <h2 class="text-md font-semibold">{{ $t('phone') }}</h2>
-      <p>{{ phone || '-' }}</p>
+      <p>{{ profile?.phone || '-' }}</p>
     </div>
 
     <div>
       <h2 class="text-md font-semibold">{{ $t('birthday') }}</h2>
       <p>
-        <template v-if="birthday">
-          {{ `${birthday.getDate()} / ${birthday.getMonth() + 1} / ${birthday.getFullYear()}` }}
+        <template v-if="profile && birthdayDate">
+          {{
+            `${birthdayDate.getDate()} / ${birthdayDate.getMonth() + 1} / ${birthdayDate.getFullYear()}`
+          }}
         </template>
         <template v-else> - </template>
       </p>
@@ -52,7 +54,7 @@ const { firstName, lastName, email, phone, birthday, about, avatarBase64 } = use
 
     <div class="col-span-3">
       <h2 class="text-md font-semibold">{{ $t('about') }}</h2>
-      <p>{{ about || '-' }}</p>
+      <p>{{ profile?.about || '-' }}</p>
     </div>
   </section>
 </template>
