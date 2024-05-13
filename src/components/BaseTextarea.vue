@@ -16,7 +16,7 @@ const modelValue = defineModel<string>()
       <textarea
         v-model="modelValue"
         :placeholder="placeholder"
-        class="h-32 w-full px-3 py-2 rounded text-black"
+        class="h-60 md:h-48 w-full px-3 py-2 rounded text-black"
       />
     </label>
     <p class="text-red-500 mt-1 text-xs min-h-4">{{ error }}</p>

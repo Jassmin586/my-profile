@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { useProfileStore } from '@/stores/profile'
 
-const store = useProfileStore()
-const { firstName, lastName, email, phone, birthday, about, avatar } = store
+const { firstName, lastName, email, phone, birthday, about, avatarBase64 } = useProfileStore()
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold mb-10 border-b pb-2 tracking-wide">
+  <h1 class="text-3xl font-bold mb-10 border-b pb-2 tracking-wide text-center md:text-left">
     {{ $t('userProfile') }}
   </h1>
 
   <section
-    class="flex flex-col md:grid md:grid-cols-3 gap-6 text-lg bg-zinc-800 p-12 rounded-md text-center md:text-left"
+    class="flex flex-col md:grid md:grid-cols-3 gap-6 text-lg bg-zinc-800 p-5 md:p-12 rounded-md text-center md:text-left"
   >
     <div class="md:col-span-3 mb-10">
       <img
-        src=""
+        :src="avatarBase64"
         :alt="$t('avatar')"
-        class="size-40 rounded-full bg-amber-400 border-2 border-white mx-auto"
+        class="size-40 rounded-full bg-white border-2 border-white mx-auto object-cover"
       />
     </div>
 

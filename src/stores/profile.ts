@@ -1,6 +1,7 @@
 import { toTypedSchema } from '@vee-validate/yup';
 import { defineStore } from 'pinia';
 import { useForm } from 'vee-validate';
+import { ref } from 'vue';
 import * as Yup from 'yup';
 
 const phoneRegex = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -18,11 +19,11 @@ const schema = toTypedSchema(
         phone: Yup.string().required().max(255, maxMessage).matches(phoneRegex, 'Phone number is not valid'),
         birthday: Yup.date().required().min(new Date(1900, 0, 1)),
         about: Yup.string().required(),
-        avatar: Yup.mixed().required().test(
+        avatar: Yup.mixed<File>().test(
             'fileFormat',
             'Available image extensions',
             value => {
-                const type = (value as File).type
+                const type = value?.type
                 if (!value || !type) {
                     return true
                 }
@@ -30,9 +31,9 @@ const schema = toTypedSchema(
                 return ['image'].includes(fileExtensionMIMEType)
             },
         )
-        .test('fileSize', 'Maximum 32 MB.', value => {
-            const size = (value as File).size
-            const maxFileSize = 32 * 1024 * 1024
+        .test('fileSize', 'Maximum 2 MB.', value => {
+            const size = value?.size
+            const maxFileSize = 2 * 1024 * 1024
 
             if (!value || !size) {
                 return true
@@ -42,6 +43,13 @@ const schema = toTypedSchema(
         }),
     })
 )
+
+const getBase64 = (file: File) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+})
 
 export const useProfileStore = defineStore('profile', () => {
     const { errors, meta, defineField, handleSubmit } = useForm({
@@ -55,10 +63,20 @@ export const useProfileStore = defineStore('profile', () => {
     const [birthday, birthdayProps] = defineField('birthday')
     const [about, aboutProps] = defineField('about')
     const [avatar, avatarProps] = defineField('avatar')
+    const avatarBase64 = ref('')
 
-    const submit = handleSubmit((values) => {
-    // send values to API
-    console.log('Submit', JSON.stringify(values, null, 2));
+    const submit = handleSubmit(async (values) => {
+        if (values.avatar) {
+            const base64 = await getBase64(values.avatar)
+            avatarBase64.value = base64 as string
+        }
+        const data = JSON.stringify({
+            ...values,
+            avatar: avatarBase64.value,
+            avatarName: values.avatar?.name
+        })
+
+        localStorage.setItem('profile', data)
     })
 
     return {
@@ -78,6 +96,7 @@ export const useProfileStore = defineStore('profile', () => {
         aboutProps,
         avatar,
         avatarProps,
+        avatarBase64,
         submit,
     }
 })
