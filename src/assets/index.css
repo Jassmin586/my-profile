@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dp__input.dp__input_focus {
+  outline: auto;
+}

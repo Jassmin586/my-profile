@@ -3,8 +3,11 @@ import { storeToRefs } from 'pinia'
 import { useProfileStore } from '@/stores/profile'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import { watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = useProfileStore()
+const router = useRouter()
 
 const {
   firstName,
@@ -21,6 +24,13 @@ const {
   errors,
   isSaved
 } = storeToRefs(store)
+
+watch(
+  () => isSaved.value,
+  (val: boolean) => {
+    val && router.push({ name: 'user-profile' })
+  }
+)
 </script>
 <template>
   <h1 class="text-3xl font-bold mb-10 border-b pb-2 tracking-wide text-center md:text-left">
