@@ -110,9 +110,6 @@ watch(
       >
         {{ $t('submit') }}
       </button>
-      <p class="text-sm text-green-500 mt-2 h-5" :class="{ invisible: !isSaved }">
-        {{ $t('changesSaved') }}
-      </p>
     </div>
   </form>
 </template>
